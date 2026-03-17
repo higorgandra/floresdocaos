@@ -228,12 +228,11 @@ export default function App() {
       <footer className="bg-zinc-900 border-t border-zinc-800 py-20 px-6 mt-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                <Music className="text-black w-5 h-5" />
-              </div>
-              <span className="text-xl font-black uppercase italic tracking-tighter">Flores do Caos</span>
-            </div>
+            <div 
+              className="mb-6 h-12 w-48 bg-no-repeat bg-contain bg-left"
+              style={{ backgroundImage: 'url("flores.svg")' }}
+              aria-label="Flores do Caos"
+            />
             <p className="text-zinc-500 text-sm leading-relaxed">
               O caos não é o fim, é o processo de crescimento. <br/> 
               Siga a nossa jornada nas sombras e na luz.
