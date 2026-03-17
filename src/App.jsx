@@ -261,7 +261,7 @@ export default function App() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-zinc-800 text-center text-zinc-600 text-[10px] uppercase tracking-widest">
-          © 2024 Flores do Caos. Desenvolvido por <a href="https://higor.pages.dev" target="_blank" rel="noopener noreferrer" className="hover:text-rose-500 transition-colors underline decoration-rose-500/30 underline-offset-2">Higor Gandra</a>
+          © 2026 Flores do Caos. Desenvolvido por <a href="https://higor.pages.dev" target="_blank" rel="noopener noreferrer" className="hover:text-rose-500 transition-colors underline decoration-rose-500/30 underline-offset-2">Higor Gandra</a>
         </div>
       </footer>
     </div>
