@@ -14,7 +14,10 @@ import {
   Youtube,
   Menu,
   X,
-  ChevronRight
+  ChevronRight,
+  Sparkles,
+  Flame,
+  Ghost
 } from 'lucide-react';
 
 export default function App() {
@@ -28,25 +31,6 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Dados da Banda (Simulando o SWOT e Métricas)
-  const bandStats = {
-    name: "Flores do Caos",
-    genre: "Post-Rock / Metal Progressivo",
-    origin: "São Paulo, Brasil",
-    swot: {
-      strengths: ["Identidade visual única (Contraste orgânico/industrial)", "Composições complexas e emocionais", "Forte engajamento em nichos de rock experimental"],
-      weaknesses: ["Dependência de nichos específicos", "Alto custo de produção audiovisual", "Pouca exposição em rádio mainstream"],
-      opportunities: ["Colaborações com artistas visuais", "Expansão para o mercado europeu de festivais", "Lançamento de NFTs de arte botânica digital"],
-      threats: ["Instabilidade do mercado de shows independentes", "Algoritmos de streaming que privilegiam faixas curtas", "Saturação do gênero"]
-    },
-    metrics: {
-      monthlyListeners: "125k",
-      engagement: 92,
-      growth: 15,
-      innovation: 88
-    }
-  };
 
   const upcomingShows = [
     { date: "15 OUT", city: "São Paulo", venue: "Audio Club", status: "Tickets" },
@@ -66,13 +50,13 @@ export default function App() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 items-center text-sm font-bold uppercase tracking-widest">
-          {['home', 'musica', 'tour', 'swot'].map((item) => (
+          {['home', 'musica', 'tour', 'manifesto'].map((item) => (
             <button 
               key={item}
               onClick={() => setActiveTab(item)}
               className={`hover:text-rose-500 transition-colors ${activeTab === item ? 'text-rose-500' : 'text-zinc-400'}`}
             >
-              {item === 'swot' ? 'Estratégia' : item}
+              {item}
             </button>
           ))}
           <button className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-full transition-all scale-100 hover:scale-105 active:scale-95">
@@ -89,7 +73,7 @@ export default function App() {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-black border-b border-zinc-800 p-6 flex flex-col gap-4 md:hidden animate-in slide-in-from-top duration-300">
-          {['home', 'musica', 'tour', 'swot'].map((item) => (
+          {['home', 'musica', 'tour', 'manifesto'].map((item) => (
             <button 
               key={item}
               onClick={() => { setActiveTab(item); setIsMenuOpen(false); }}
@@ -112,16 +96,19 @@ export default function App() {
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
-              src="https://images.unsplash.com/photo-1514525253361-bee8a48740dc?auto=format&fit=crop&w=1920&q=80" 
-              className="w-full h-full object-cover opacity-30 grayscale hover:grayscale-0 transition-all duration-1000"
-              alt="Background"
+              src="https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&w=1920&q=80" 
+              className="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-1000"
+              alt="Flores do Caos Live Background"
+              onError={(e) => {
+                e.target.src = "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1920&q=80";
+              }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/40 via-transparent to-zinc-950"></div>
           </div>
           
           <div className="relative z-10 text-center px-6">
             <h1 className="text-6xl md:text-9xl font-black italic tracking-tighter uppercase mb-4 leading-none">
-              A Beleza do <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">Entropia</span>
+              A Beleza da <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">Entropia</span>
             </h1>
             <p className="text-zinc-400 max-w-2xl mx-auto mb-8 text-lg">
               Novo álbum "Jardim de Cinzas" disponível em todas as plataformas digitais.
@@ -130,7 +117,7 @@ export default function App() {
               <button className="bg-white text-black px-8 py-4 rounded-full font-bold flex items-center gap-2 hover:bg-rose-500 hover:text-white transition-all">
                 <Play className="fill-current" /> Ouvir Agora
               </button>
-              <button className="border border-white/20 px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all">
+              <button onClick={() => setActiveTab('tour')} className="border border-white/20 px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all">
                 Ver Datas da Tour
               </button>
             </div>
@@ -191,85 +178,47 @@ export default function App() {
         </section>
       )}
 
-      {/* STRATEGY (SWOT) SECTION */}
-      {activeTab === 'swot' && (
-        <section className="pt-32 pb-20 px-6 max-w-7xl mx-auto animate-in slide-in-from-bottom duration-700">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-            <div>
-              <span className="text-rose-500 font-bold uppercase tracking-widest text-sm">Painel do Artista</span>
-              <h2 className="text-5xl font-black uppercase italic">Raio-X Estratégico</h2>
-            </div>
-            <div className="flex gap-4">
-              <div className="bg-zinc-900 p-4 rounded-2xl border border-zinc-800">
-                <p className="text-zinc-500 text-xs font-bold uppercase">Ouvintes Mensais</p>
-                <p className="text-2xl font-black">{bandStats.metrics.monthlyListeners}</p>
-              </div>
-              <div className="bg-zinc-900 p-4 rounded-2xl border border-zinc-800">
-                <p className="text-zinc-500 text-xs font-bold uppercase">Engajamento</p>
-                <p className="text-2xl font-black text-emerald-500">+{bandStats.metrics.engagement}%</p>
-              </div>
-            </div>
+      {/* MANIFESTO SECTION */}
+      {activeTab === 'manifesto' && (
+        <section className="pt-32 pb-20 px-6 max-w-4xl mx-auto animate-in slide-in-from-bottom duration-700">
+          <div className="text-center mb-16">
+            <span className="text-rose-500 font-bold uppercase tracking-widest text-sm">Nossa Essência</span>
+            <h2 className="text-5xl md:text-7xl font-black uppercase italic mb-6">Manifesto do Caos</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-rose-500 to-purple-600 mx-auto"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Forças */}
-            <div className="bg-emerald-500/5 border border-emerald-500/20 p-8 rounded-3xl">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-emerald-500 rounded-2xl"><Zap className="text-white" /></div>
-                <h4 className="text-xl font-bold text-emerald-400">Forças</h4>
-              </div>
-              <ul className="space-y-4">
-                {bandStats.swot.strengths.map((s, i) => (
-                  <li key={i} className="flex gap-3 text-zinc-300">
-                    <ChevronRight className="w-5 h-5 text-emerald-500 shrink-0" /> {s}
-                  </li>
-                ))}
-              </ul>
+          <div className="space-y-12 text-zinc-300 leading-relaxed text-lg md:text-xl font-light italic">
+            <div className="relative p-8 border-l-4 border-rose-500 bg-zinc-900/50 rounded-r-2xl">
+              <p>
+                "Nascemos do silêncio que precede a tempestade. Flores do Caos não é apenas uma banda, é a expressão 
+                de que no centro de cada colapso existe uma harmonia esperando para ser ouvida."
+              </p>
             </div>
 
-            {/* Fraquezas */}
-            <div className="bg-yellow-500/5 border border-yellow-500/20 p-8 rounded-3xl">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-yellow-500 rounded-2xl"><Shield className="text-white" /></div>
-                <h4 className="text-xl font-bold text-yellow-400">Fraquezas</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 bg-zinc-900 rounded-3xl border border-zinc-800 hover:border-purple-500/30 transition-all">
+                <Sparkles className="text-purple-500 mb-4 w-10 h-10" />
+                <h4 className="text-white font-bold text-xl mb-2 uppercase italic">A Flor</h4>
+                <p className="text-sm">Representa o orgânico, o efêmero e a vulnerabilidade. Nossa música floresce mesmo em terrenos áridos e industriais.</p>
               </div>
-              <ul className="space-y-4">
-                {bandStats.swot.weaknesses.map((s, i) => (
-                  <li key={i} className="flex gap-3 text-zinc-300">
-                    <ChevronRight className="w-5 h-5 text-yellow-500 shrink-0" /> {s}
-                  </li>
-                ))}
-              </ul>
+              <div className="p-6 bg-zinc-900 rounded-3xl border border-zinc-800 hover:border-rose-500/30 transition-all">
+                <Flame className="text-rose-500 mb-4 w-10 h-10" />
+                <h4 className="text-white font-bold text-xl mb-2 uppercase italic">O Caos</h4>
+                <p className="text-sm">A distorção, a complexidade rítmica e a energia bruta. Abraçamos a desordem como a única forma de criar o novo.</p>
+              </div>
             </div>
 
-            {/* Oportunidades */}
-            <div className="bg-blue-500/5 border border-blue-500/20 p-8 rounded-3xl">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-blue-500 rounded-2xl"><Search className="text-white" /></div>
-                <h4 className="text-xl font-bold text-blue-400">Oportunidades</h4>
-              </div>
-              <ul className="space-y-4">
-                {bandStats.swot.opportunities.map((s, i) => (
-                  <li key={i} className="flex gap-3 text-zinc-300">
-                    <ChevronRight className="w-5 h-5 text-blue-500 shrink-0" /> {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className="text-center text-zinc-400">
+              Entre o Post-Rock contemplativo e o Metal Progressivo agressivo, traçamos uma linha onde o barulho 
+              se torna poesia. Não buscamos a perfeição, buscamos a verdade que reside nas rachaduras.
+            </p>
 
-            {/* Ameaças */}
-            <div className="bg-rose-500/5 border border-rose-500/20 p-8 rounded-3xl">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-rose-500 rounded-2xl"><AlertTriangle className="text-white" /></div>
-                <h4 className="text-xl font-bold text-rose-400">Ameaças</h4>
+            <div className="flex justify-center pt-8">
+              <div className="flex items-center gap-4 text-zinc-500">
+                <span className="h-px w-12 bg-zinc-800"></span>
+                <Ghost className="w-6 h-6" />
+                <span className="h-px w-12 bg-zinc-800"></span>
               </div>
-              <ul className="space-y-4">
-                {bandStats.swot.threats.map((s, i) => (
-                  <li key={i} className="flex gap-3 text-zinc-300">
-                    <ChevronRight className="w-5 h-5 text-rose-500 shrink-0" /> {s}
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </section>
